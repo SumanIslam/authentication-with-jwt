@@ -19,6 +19,7 @@
   "homepage": "https://github.com/SumanIslam/authentication-with-jwt#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "express-validator": "^6.14.0",
     "nodemon": "^2.0.15"
   }
 }
