@@ -47,6 +47,7 @@ authRouter.post('/signup',[
   }, "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", {
     expiresIn: 3600000
   })
+  console.log(token);
 
   res.json({
     token
