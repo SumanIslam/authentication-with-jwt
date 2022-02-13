@@ -39,7 +39,6 @@ authRouter.post('/signup',[
     email,
     password: hashedPassword,
   })
-  console.log(users);
 
   res.send('signup router working');
 });
