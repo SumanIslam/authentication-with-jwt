@@ -1,6 +1,8 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
+const JWT = require('jsonwebtoken');
+
 const { users } = require('../db');
 
 const authRouter = express.Router();
@@ -20,7 +22,7 @@ authRouter.post('/signup',[
   }
 
   // validated if user is valid or not
-  let oldUser = users.find(user => {
+  const oldUser = users.find(user => {
     return user.email === email;
   });
 
@@ -34,13 +36,21 @@ authRouter.post('/signup',[
     })
   }
 
-  let hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
   users.push({
     email,
     password: hashedPassword,
+  });
+
+  const token = JWT.sign({
+    email
+  }, "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", {
+    expiresIn: 3600000
   })
 
-  res.send('signup router working');
+  res.json({
+    token
+  });
 });
 
 authRouter.get('/all', (req, res) => {
