@@ -4,6 +4,8 @@ const authRouter = require('./routes/auth.router');
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 
 // Router
@@ -13,6 +15,6 @@ app.get('/', (req, res) => {
   res.send('Hi I am working');
 })
 
-app.listen(3000, () => {
-  console.log('server is running on 3000');
+app.listen(PORT, () => {
+  console.log(`server is running on ${PORT}`);
 })
