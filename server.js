@@ -1,6 +1,7 @@
 const express = require('express');
 
 const authRouter = require('./routes/auth.router');
+const postRouter = require('./routes/post');
 
 const app = express();
 
@@ -8,8 +9,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Router
+// Routes
 app.use('/auth', authRouter);
+app.use('/posts', postRouter);
 
 app.get('/', (req, res) => {
   res.send('Hi I am working');
