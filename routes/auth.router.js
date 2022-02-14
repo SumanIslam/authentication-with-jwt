@@ -47,12 +47,52 @@ authRouter.post('/signup',[
   }, "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", {
     expiresIn: 3600000
   })
-  console.log(token);
 
   res.json({
     token
   });
 });
+
+// login route
+authRouter.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = users.find(user => {
+    return user.email === email;
+  });
+
+  if(!user) {
+    return res.status(400).json({
+      errors: [
+        {
+          msg: "Invalid credentials",
+        }
+      ]
+    })
+  }
+
+  let isMatch = bcrypt.compare(password, user.password);
+
+  if(!isMatch) {
+    return res.status(400).json({
+      errors: [
+        {
+          msg: "Email already exists",
+        }
+      ]
+    })
+  };
+
+  const token = JWT.sign({
+    email
+  }, "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", {
+    expiresIn: 3600000
+  })
+
+  res.json({
+    token
+  });
+})
 
 authRouter.get('/all', (req, res) => {
   console.log(users);
